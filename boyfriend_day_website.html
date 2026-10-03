@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Boyfriend?</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    background: linear-gradient(135deg, #ffd6e7, #fff0f5, #ffe4ef);
+    overflow: hidden;
+    color: #5b1735;
+  }
+  .hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+  }
+  .heart {
+    position: absolute;
+    color: rgba(255, 70, 130, .35);
+    font-size: 28px;
+    animation: float 7s linear infinite;
+  }
+  @keyframes float {
+    from { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    15% { opacity: 1; }
+    to { transform: translateY(-15vh) rotate(360deg); opacity: 0; }
+  }
+  .card {
+    width: min(92vw, 560px);
+    padding: 45px 30px;
+    text-align: center;
+    background: rgba(255,255,255,.82);
+    border: 2px solid rgba(255,105,150,.3);
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(145, 34, 82, .18);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 2;
+  }
+  .emoji { font-size: 65px; margin-bottom: 10px; }
+  h1 { font-size: clamp(30px, 7vw, 48px); margin: 8px 0 14px; }
+  p { font-size: 20px; line-height: 1.5; margin: 0 auto 28px; }
+  .buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  button {
+    border: 0;
+    border-radius: 999px;
+    padding: 15px 32px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+  }
+  button:hover { transform: translateY(-3px) scale(1.03); }
+  .yes {
+    background: #ff4f8b;
+    color: white;
+    box-shadow: 0 10px 25px rgba(255,79,139,.35);
+  }
+  .no {
+    background: #fff;
+    color: #d52d65;
+    border: 2px solid #ff9abb;
+  }
+  .hidden { display: none; }
+  .success h1 { color: #e72f72; }
+  .success .big { font-size: 90px; animation: pulse 1s infinite alternate; }
+  @keyframes pulse { to { transform: scale(1.12); } }
+  .warning {
+    border-color: rgba(255, 55, 55, .25);
+    background: rgba(255,245,245,.9);
+  }
+  .warning h1 { color: #d62828; }
+  .warning .big { font-size: 78px; }
+  .back {
+    margin-top: 22px;
+    background: transparent;
+    color: #777;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts"></div>
+
+<main class="card" id="question">
+  <div class="emoji">💗</div>
+  <h1>Will you be my boyfriend?</h1>
+  <p>There is only one correct answer… 😌💕</p>
+  <div class="buttons">
+    <button class="yes" onclick="showPage('yesPage')">YES 💕</button>
+    <button class="no" onclick="showPage('noPage')">NO 😳</button>
+  </div>
+</main>
+
+<main class="card success hidden" id="yesPage">
+  <div class="big">🥰</div>
+  <h1>Happy Boyfriend's Day! 💕</h1>
+  <p>Yayyy! You officially said YES! 💖<br>Now you're stuck with me. 😌❤️</p>
+  <button class="back" onclick="showPage('question')">← Go back</button>
+</main>
+
+<main class="card warning hidden" id="noPage">
+  <div class="big">⚠️</div>
+  <h1>WARNING! 😱</h1>
+  <p><strong>Your life is at risk! 😂</strong><br><br>
+  Just kidding… but think carefully before pressing NO again. 👀❤️</p>
+  <button class="yes" onclick="showPage('question')">Okay okay, YES! 💕</button>
+</main>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.card').forEach(el => el.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+
+const hearts = document.getElementById('hearts');
+for (let i = 0; i < 18; i++) {
+  const h = document.createElement('span');
+  h.className = 'heart';
+  h.textContent = Math.random() > .5 ? '♥' : '♡';
+  h.style.left = Math.random() * 100 + 'vw';
+  h.style.animationDelay = Math.random() * 7 + 's';
+  h.style.animationDuration = (5 + Math.random() * 5) + 's';
+  h.style.fontSize = (18 + Math.random() * 25) + 'px';
+  hearts.appendChild(h);
+}
+</script>
+</body>
+</html>
